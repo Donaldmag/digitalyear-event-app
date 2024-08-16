@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('/fonts/Poppins/Poppins-Light.ttf') format('truetype');
+    /* font-weight: normal;
+    font-style: normal;
+    font-display: swap; */
+  }
+
+  @font-face {
+    font-family: 'Montserrat';
+    src: url('/fonts/Montserrat/Montserrat Regular 400.ttf') format('truetype');
+    /* font-weight: normal;
+    font-style: normal;
+    font-display: swap; */
+  }
+
+  @font-face {
+    font-family: 'OpenSans';
+    src: url('/fonts/OpenSans/OpenSans-Regular.ttf') format('truetype');
+    /* font-weight: normal;
+    font-style: normal;
+    font-display: swap; */
+  }
+
+h1, h2, h3, h4, h5{
+    font-family: 'Montserrat', sans-serif;
+}
+
+a, button, span, p, input{
+    font-family: 'Poppins', sans-serif;
+}
