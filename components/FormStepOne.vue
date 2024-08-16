@@ -19,7 +19,7 @@
                 placeholder="Jane"
                 class="w-full pb-2 border-[#DDE3EC] border-b border-l-0 border-r-0 border-t-0 outline-none focus:outline-none bg-transparent font-semibold placeholder:text-[#536387] placeholder:font-normal focus:text-[#6A64F1]"
                 />
-                <label for="firstname" class="text-[#07074D] capitalize font-semibold mb-0.5"> First name </label>
+                <label for="firstname" class="text-[#07074D] capitalize font-semibold mb-1"> First name </label>
             </div>
           </div>
 
@@ -32,7 +32,7 @@
                 placeholder="Antoine"
                 class="w-full pb-2 border-[#DDE3EC] border-b border-l-0 border-r-0 border-t-0 outline-none focus:outline-none bg-transparent font-semibold placeholder:text-[#536387] placeholder:font-normal focus:text-[#6A64F1]"
                 />
-                <label for="lastname" class="text-[#07074D] capitalize font-semibold mb-0.5"> Last name </label>
+                <label for="lastname" class="text-[#07074D] capitalize font-semibold mb-1"> Last name </label>
             </div>
           </div>
 
@@ -50,21 +50,18 @@
                 placeholder="My Organization Name"
                 class="w-full pb-2 border-[#DDE3EC] border-b border-l-0 border-r-0 border-t-0 outline-none focus:outline-none bg-transparent font-semibold placeholder:text-[#536387] placeholder:font-normal focus:text-[#6A64F1]"
                 />
-                <label for="organization" class="text-[#07074D] capitalize font-semibold mb-0.5"> Organization name</label>
+                <label for="organization" class="text-[#07074D] capitalize font-semibold mb-1"> Organization name</label>
             </div>
           </div>
 
+          <button type="submit" class="w-full h-14 px-4 bg-green-600 text-white font-medium rounded-xl flex items-center justify-between hover:opacity-80 transition">
+            <span> &nbsp; </span>
+            <span class="uppercase">Next</span>
+            <span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20"><path fill="currentColor" d="M10 0c5.523 0 10 4.477 10 10s-4.477 10-10 10S0 15.523 0 10S4.477 0 10 0M8.749 5.646a.682.682 0 1 0-.977.951l3.402 3.491l-3.397 3.42a.682.682 0 1 0 .967.96l3.87-3.894a.68.68 0 0 0 .005-.957Z"/></svg>
+            </span>
+          </button>
         </form>
-
-
-
-        <button type="submit" class="w-full h-12 px-4 bg-green-600 text-white font-medium rounded-xl flex items-center justify-between hover:opacity-80 transition">
-          <span> &nbsp; </span>
-          <span class="uppercase">Suivant</span>
-          <span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20"><path fill="currentColor" d="M10 0c5.523 0 10 4.477 10 10s-4.477 10-10 10S0 15.523 0 10S4.477 0 10 0M8.749 5.646a.682.682 0 1 0-.977.951l3.402 3.491l-3.397 3.42a.682.682 0 1 0 .967.96l3.87-3.894a.68.68 0 0 0 .005-.957Z"/></svg>
-          </span>
-        </button>
 
       </div>
     </div>
