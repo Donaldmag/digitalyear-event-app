@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form>
+    <form @click.prevent.submit="">
 
       <div
         class="flex items-center justify-start gap-4 p-4 border-gray-200 border-2 rounded-xl mb-2 cursor-pointer hover:bg-gray-100 transition">
@@ -26,21 +26,9 @@
           <label for="lastname" class="text-[#07074D] capitalize font-semibold mb-1"> Your email </label>
         </div>
       </div>
-
-
-      <button type="submit"
-        class="w-full h-14 px-4 bg-green-600 text-white font-medium rounded-xl flex items-center justify-between hover:opacity-80 transition">
-        <span> &nbsp; </span>
-        <span class="uppercase">Next</span>
-        <span>
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20">
-            <path fill="currentColor"
-              d="M10 0c5.523 0 10 4.477 10 10s-4.477 10-10 10S0 15.523 0 10S4.477 0 10 0M8.749 5.646a.682.682 0 1 0-.977.951l3.402 3.491l-3.397 3.42a.682.682 0 1 0 .967.96l3.87-3.894a.68.68 0 0 0 .005-.957Z" />
-          </svg>
-        </span>
-      </button>
     </form>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+</script>
