@@ -3,6 +3,10 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   css: ['~/assets/css/main.css'],
   devtools: { enabled: true },
+  ssr: true,
+  modules:[
+    // '@vee-validate/nuxt'
+  ],
   postcss: {
     plugins: {
       tailwindcss: {},

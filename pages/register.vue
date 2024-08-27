@@ -32,13 +32,11 @@ import FormStepOne from '~/components/FormStepOne.vue';
 import FormStepThree from '~/components/FormStepThree.vue';
 import FormStepTwo from '~/components/FormStepTwo.vue';
 import useSteps from '../composables/useSteps';
-import ThankYou from '~/components/ThankYou.vue';
 
-const {step, nextStep, prevStep} = useSteps();
+const {step, nextStep, prevStep, validateStep} = useSteps();
 const steps = [
     FormStepOne,
     FormStepTwo,
     FormStepThree,
-    ThankYou
 ];
 </script>
