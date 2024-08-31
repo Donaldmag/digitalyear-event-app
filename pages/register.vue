@@ -39,4 +39,8 @@ const steps = [
     FormStepTwo,
     FormStepThree,
 ];
+
+// const processSteps = () =>{
+//     nextStep
+// }
 </script>

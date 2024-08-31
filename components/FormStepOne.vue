@@ -59,6 +59,8 @@
             </div>
         </div>
 
+        <!-- <button @click="submitForm" type="submit">Next</button> -->
+
         <!-- <button @click="submitForm" type="submit" class="w-full h-14 px-4 bg-green-600 text-white font-medium rounded-xl flex items-center justify-between hover:opacity-80 transition uppercase">
             <span> &nbsp; </span>
             <span>Next</span>
@@ -71,10 +73,11 @@
 </template>
 
 <script setup>
+import useSteps from '../composables/useDate'
 import { required, minLength, helpers } from '@vuelidate/validators';
 import { useVuelidate } from '@vuelidate/core'
 
-// const {step, nextStep, prevStep, validateStep} = useSteps();
+const {step, nextStep, prevStep, validateStep} = useSteps();
 const isChecked = ref(false);
 
 const formData = reactive({
@@ -99,11 +102,13 @@ const rules = computed(()=>{
 
 const v$ = useVuelidate(rules, formData);
 
-const submitForm = () =>{
-  v$.value.$validate();
-  // if(!v$.value.$error){
-  //   console.log('error :', v$.value.$error.withMessage);
-  // }
-  // nextStep();
+function submitForm(){
+  if(!v$.value.$invalid){
+    console.log('No errors');
+    nextStep
+  }
+  console.log('errors occured');
+  // console.log('error is', v$.value.$invalid);
+  // console.log('error 5', v$.value.$error);
 }
 </script>
