@@ -2,8 +2,7 @@
   <div>
     <form @click.prevent.submit="">
 
-      <div
-        class="flex items-center justify-start gap-4 p-4 border-gray-200 border-2 rounded-xl mb-2 cursor-pointer hover:bg-gray-100 transition">
+      <div class="flex items-center justify-start gap-4 p-4 border-gray-200 border-2 rounded-xl mb-2 cursor-pointer hover:bg-gray-100 transition opacity-50">
         <svg xmlns="http://www.w3.org/2000/svg" width="31.27" height="32" viewBox="0 0 256 262">
           <path fill="#4285F4"
             d="M255.878 133.451c0-10.734-.871-18.567-2.756-26.69H130.55v48.448h71.947c-1.45 12.04-9.283 30.172-26.69 42.356l-.244 1.622l38.755 30.023l2.685.268c24.659-22.774 38.875-56.282 38.875-96.027" />
@@ -21,14 +20,43 @@
 
       <div class="flex items-center justify-start gap-2 py-2 px-4 rounded-xl mb-6 bg-gray-100 my-4">
         <div class="w-full items-start flex flex-col-reverse">
-          <input type="email" name="email" id="email" placeholder="my-email@example.com"
+          <input 
+            type="email" 
+            name="email" 
+            id="email" 
+            v-model="formData.email"
+            @submit="v$.value.$touch"
+            placeholder="my-email@example.com"
             class="w-full pb-2 border-[#DDE3EC] border-b border-l-0 border-r-0 border-t-0 outline-none focus:outline-none bg-transparent font-semibold placeholder:text-[#536387] placeholder:font-normal focus:text-[#6A64F1]" />
           <label for="lastname" class="text-[#07074D] capitalize font-semibold mb-1"> Your email </label>
         </div>
       </div>
+
+      <button @click="submitForm" type="submit" class="w-full h-14 px-4 bg-green-600 text-white font-medium rounded-xl flex items-center justify-between hover:opacity-80 transition uppercase">
+          <span> &nbsp; </span>
+          <span>Next</span>
+          <span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20"><path fill="currentColor" d="M10 0c5.523 0 10 4.477 10 10s-4.477 10-10 10S0 15.523 0 10S4.477 0 10 0M8.749 5.646a.682.682 0 1 0-.977.951l3.402 3.491l-3.397 3.42a.682.682 0 1 0 .967.96l3.87-3.894a.68.68 0 0 0 .005-.957Z"/></svg>
+          </span>
+      </button>
     </form>
   </div>
 </template>
 
 <script setup>
+import useReactiveForm from '../composables/useReactiveForm';
+const { formData, v$ } = useReactiveForm();
+
+const emit = defineEmits('next-step');
+
+function submitForm(){
+   if(v$.value.$invalid === false){
+    emit('next-step');
+    console.log('formData step 2', formData);
+  }
+  else if(v$.value.$invalid === true) {
+    alert(v$.value.$error)
+  }
+}
+
 </script>

@@ -11,7 +11,7 @@
                 @change="v$.firstName.$touch"
                 id="firstname"
                 placeholder="Jane"
-                class="w-full pb-2 border-[#DDE3EC] border-b border-l-0 border-r-0 border-t-0 outline-none focus:outline-none bg-transparent font-semibold placeholder:text-[#536387] placeholder:font-normal focus:text-[#6A64F1]"
+                class="w-full capitalize pb-2 border-[#DDE3EC] border-b border-l-0 border-r-0 border-t-0 outline-none focus:outline-none bg-transparent font-semibold placeholder:text-[#536387] placeholder:font-normal focus:text-[#6A64F1]"
                 />
                 <label for="firstname" class="text-[#07074D] capitalize font-semibold mb-1"> First name </label>
               </div>
@@ -29,7 +29,7 @@
                   @change="v$.lastName.$touch"
                   id="lastname"
                   placeholder="Antoine"
-                  class="w-full pb-2 border-[#DDE3EC] border-b border-l-0 border-r-0 border-t-0 outline-none focus:outline-none bg-transparent font-semibold placeholder:text-[#536387] placeholder:font-normal focus:text-[#6A64F1]"
+                  class="w-full capitalize pb-2 border-[#DDE3EC] border-b border-l-0 border-r-0 border-t-0 outline-none focus:outline-none bg-transparent font-semibold placeholder:text-[#536387] placeholder:font-normal focus:text-[#6A64F1]"
                   />
                   <label for="lastname" class="text-[#07074D] capitalize font-semibold mb-1"> Last name </label>
                 </div>
@@ -59,56 +59,34 @@
             </div>
         </div>
 
-        <!-- <button @click="submitForm" type="submit">Next</button> -->
-
-        <!-- <button @click="submitForm" type="submit" class="w-full h-14 px-4 bg-green-600 text-white font-medium rounded-xl flex items-center justify-between hover:opacity-80 transition uppercase">
+        <button @click="submitForm" type="submit" class="w-full h-14 px-4 bg-green-600 text-white font-medium rounded-xl flex items-center justify-between hover:opacity-80 transition uppercase">
             <span> &nbsp; </span>
             <span>Next</span>
             <span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20"><path fill="currentColor" d="M10 0c5.523 0 10 4.477 10 10s-4.477 10-10 10S0 15.523 0 10S4.477 0 10 0M8.749 5.646a.682.682 0 1 0-.977.951l3.402 3.491l-3.397 3.42a.682.682 0 1 0 .967.96l3.87-3.894a.68.68 0 0 0 .005-.957Z"/></svg>
             </span>
-        </button> -->
+        </button>
       </form>
   </div>
 </template>
 
 <script setup>
-import useSteps from '../composables/useDate'
-import { required, minLength, helpers } from '@vuelidate/validators';
-import { useVuelidate } from '@vuelidate/core'
-
-const {step, nextStep, prevStep, validateStep} = useSteps();
+import useReactiveForm from '../composables/useReactiveForm';
+const { formData, v$ } = useReactiveForm();
 const isChecked = ref(false);
 
-const formData = reactive({
-  firstName: '',
-  lastName: '',
-  organizationName: ''
-});
-
-const rules = computed(()=>{
-  return {
-    firstName : {
-      required :helpers.withMessage('First name is required', required), 
-      minLength : minLength(4)
-    },
-    lastName : {
-      required:helpers.withMessage('Last name is required', required), 
-      minLength : minLength(4)
-    },
-    organizationName : {minLength : minLength(4)},
-  }
-});
-
-const v$ = useVuelidate(rules, formData);
+const emit = defineEmits('next-step');
 
 function submitForm(){
-  if(!v$.value.$invalid){
-    console.log('No errors');
-    nextStep
+
+  if(v$.value.$invalid === false){
+    emit('next-step');
+    console.log('formData is', formData);
   }
-  console.log('errors occured');
-  // console.log('error is', v$.value.$invalid);
-  // console.log('error 5', v$.value.$error);
+  else if(v$.value.$invalid === true) {
+    alert(v$.value.$error)
+  }
+
+  console.log('v$.value.$invalid is', v$.value.$invalid);
 }
 </script>
