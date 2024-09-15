@@ -15,6 +15,20 @@
                 />
                 <label for="firstname" class="text-[#07074D] capitalize font-semibold mb-1"> First name </label>
               </div>
+
+              <!-- <div class="flex items-center justify-start gap-2 py-2 px-4 rounded-xl mb-6 bg-gray-100 my-4">
+                <div class="w-full items-start flex flex-col-reverse">
+                  <input 
+                    type="email" 
+                    name="email" 
+                    id="email" 
+                    v-model="formData.email"
+                    @change="v$.email.$touch"
+                    placeholder="my-email@example.com"
+                    class="w-full pb-2 border-[#DDE3EC] border-b border-l-0 border-r-0 border-t-0 outline-none focus:outline-none bg-transparent font-semibold placeholder:text-[#536387] placeholder:font-normal focus:text-[#6A64F1]" />
+                  <label for="lastname" class="text-[#07074D] capitalize font-semibold mb-1"> Your email {{ v$.email.$error }}</label>
+                </div>
+              </div> -->
             </div>
             <div v-if="v$.firstName.$error" class="text-sm px-2 text-red-500">First name must be atleast 4 letters</div>
           </div>
@@ -73,20 +87,28 @@
 <script setup>
 import useReactiveForm from '../composables/useReactiveForm';
 const { formData, v$ } = useReactiveForm();
+// import useForm from '../composables/useForm';
+// const { dataToSubmit } = useForm();
+
+const props = defineProps({
+  dataToSubmit: { type: Object, required: true },
+});
 const isChecked = ref(false);
 
 const emit = defineEmits('next-step');
 
 function submitForm(){
-
-  if(v$.value.$invalid === false){
+  if(!v$.value.$invalid){
+    props.dataToSubmit.firstName = formData.firstName;
+    props.dataToSubmit.lastName = formData.lastName;
+    props.dataToSubmit.organizationName = formData.organizationName;
     emit('next-step');
-    console.log('formData is', formData);
+    // console.log('formData is', formData);
+    // console.log('dataToSubmit is', props.dataToSubmit);
+    
+  } else if(v$.value.$invalid){
+    alert('Please enter a valid First name or Last name')
   }
-  else if(v$.value.$invalid === true) {
-    alert(v$.value.$error)
-  }
-
-  console.log('v$.value.$invalid is', v$.value.$invalid);
+  // console.log('v$.value.$invalid is', v$.value.$invalid);
 }
 </script>

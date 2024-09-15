@@ -10,9 +10,9 @@
                     </div>
 
                     <RegistrationFromHead />
-                    <FormStepOne @next-step="setIndex(1)" v-if="stepOneVisible===true"/>
-                    <FormStepTwo @next-step="setIndex(2)" v-if="stepTwoVisible===true"/>
-                    <FormStepThree v-if="stepThreeVisible===true"/>
+                    <FormStepOne @next-step="setIndex(1)" v-if="stepOneVisible===true" :dataToSubmit="dataToSubmit"/>
+                    <FormStepTwo @next-step="setIndex(2)" v-if="stepTwoVisible===true" :dataToSubmit="dataToSubmit"/>
+                    <FormStepThree @submit-form="submitForm()" v-if="stepThreeVisible===true" :dataToSubmit="dataToSubmit"/>
 
                 </div> 
             </div>
@@ -22,6 +22,17 @@
 </template>
 
 <script setup>
+import axios from 'axios';
+const dataToSubmit = reactive({
+  firstName: '',
+  lastName: '',
+  organizationName : '',
+  event:null,
+  email: '',
+  errorMessage : null
+});
+// const errorMessage = reactive(null)
+
 const stepOneVisible = ref(true);
 const stepTwoVisible = ref(false);
 const stepThreeVisible = ref(false);
@@ -44,6 +55,24 @@ const moveBack = (type) =>{
         stepOneVisible.value = true;
         stepTwoVisible.value = false;
         stepThreeVisible.value = false;
+    }
+}
+
+async function submitForm(){
+    try {
+        // console.log('data to submit', dataToSubmit);Z
+        const response = await axios.post('http://localhost:3008/submit-data', dataToSubmit);
+        // console.log('Data submitted successfully:', response.data);Z
+    } catch (error) {
+        if (error.response && error.response.status === 409) {
+          // Handle conflict error specifically
+          dataToSubmit.errorMessage = error.response.data.error;
+        alert(dataToSubmit.errorMessage);
+        } else {
+          // Handle other errors
+          errorMessage = 'An unexpected error occurred.';
+        }
+        console.error('Error submitting data:', error);
     }
 }
 

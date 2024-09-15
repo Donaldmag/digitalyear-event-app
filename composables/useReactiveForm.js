@@ -12,7 +12,9 @@ export default function useReactiveForm() {
 
   const rules = computed(()=>{
     return {
-     
+     email: {
+        email: helpers.withMessage('Invalid email format', email),
+      },
       firstName : {
         required :helpers.withMessage('First name is required', required), 
         minLength : minLength(4)
@@ -21,7 +23,7 @@ export default function useReactiveForm() {
         required:helpers.withMessage('Last name is required', required), 
         minLength : minLength(4)
       },
-      organizationName : {minLength : minLength(4)},
+      organizationName : {minLength : minLength(2)},
       // email: {
       //   required: helpers.withMessage('Email is required', required),
       //   email: helpers.withMessage('Invalid email format', email),

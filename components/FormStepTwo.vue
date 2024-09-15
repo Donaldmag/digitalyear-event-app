@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form @click.prevent.submit="">
+    <form @submit.prevent="submit">
 
       <div class="flex items-center justify-start gap-4 p-4 border-gray-200 border-2 rounded-xl mb-2 cursor-pointer hover:bg-gray-100 transition opacity-50">
         <svg xmlns="http://www.w3.org/2000/svg" width="31.27" height="32" viewBox="0 0 256 262">
@@ -18,20 +18,22 @@
 
       <div class="w-full text-center text-[#07074D] capitalize font-semibold mb-1"> OR </div>
 
-      <div class="flex items-center justify-start gap-2 py-2 px-4 rounded-xl mb-6 bg-gray-100 my-4">
-        <div class="w-full items-start flex flex-col-reverse">
-          <input 
-            type="email" 
-            name="email" 
-            id="email" 
-            v-model="formData.email"
-            @submit="v$.value.$touch"
-            placeholder="my-email@example.com"
-            class="w-full pb-2 border-[#DDE3EC] border-b border-l-0 border-r-0 border-t-0 outline-none focus:outline-none bg-transparent font-semibold placeholder:text-[#536387] placeholder:font-normal focus:text-[#6A64F1]" />
-          <label for="lastname" class="text-[#07074D] capitalize font-semibold mb-1"> Your email </label>
+      <div class="mb-8">
+        <div class="flex items-center justify-start gap-2 px-4 py-2 rounded-xl bg-gray-100 mb-1">
+          <div class="w-full items-start flex flex-col-reverse">
+            <input 
+              type="email" 
+              name="email" 
+              id="email" 
+              v-model="formData.email"
+              @change="v$.email.$touch"
+              placeholder="my-email@example.com"
+              class="w-full pb-2 border-[#DDE3EC] border-b border-l-0 border-r-0 border-t-0 outline-none focus:outline-none bg-transparent font-semibold placeholder:text-[#536387] placeholder:font-normal focus:text-[#6A64F1]" />
+            <label for="lastname" class="text-[#07074D] capitalize font-semibold mb-1"> Your email </label>
+          </div>
         </div>
+        <div v-if="v$.email.$error" class="text-sm px-2 text-red-500">Please enter a valid Email</div> 
       </div>
-
       <button @click="submitForm" type="submit" class="w-full h-14 px-4 bg-green-600 text-white font-medium rounded-xl flex items-center justify-between hover:opacity-80 transition uppercase">
           <span> &nbsp; </span>
           <span>Next</span>
@@ -45,18 +47,27 @@
 
 <script setup>
 import useReactiveForm from '../composables/useReactiveForm';
-const { formData, v$ } = useReactiveForm();
+import axios from 'axios';
 
+const { formData, v$ } = useReactiveForm();
+// import useForm from '../composables/useForm';
+// const { dataToSubmit } = useForm();
+
+const props = defineProps({
+  dataToSubmit: { type: Object, required: true },
+});
 const emit = defineEmits('next-step');
 
-function submitForm(){
-   if(v$.value.$invalid === false){
+async function submitForm(){
+  try{
+    const response = await axios.post('http://localhost:3008/check-email', {email: formData.email});
     emit('next-step');
-    console.log('formData step 2', formData);
-  }
-  else if(v$.value.$invalid === true) {
-    alert(v$.value.$error)
+    props.dataToSubmit.email = formData.email;
+
+  } catch (error) {
+    if (error.response && error.response.status === 409){
+      alert(error.response.data.error);
+    }
   }
 }
-
 </script>
