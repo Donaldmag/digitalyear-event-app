@@ -24,10 +24,6 @@ export default function useReactiveForm() {
         minLength : minLength(4)
       },
       organizationName : {minLength : minLength(2)},
-      // email: {
-      //   required: helpers.withMessage('Email is required', required),
-      //   email: helpers.withMessage('Invalid email format', email),
-      // },
     }
   });
 

@@ -60,9 +60,9 @@ const moveBack = (type) =>{
 
 async function submitForm(){
     try {
-        // console.log('data to submit', dataToSubmit);Z
+        // console.log('data to submit', dataToSubmit);
         const response = await axios.post('http://localhost:3008/submit-data', dataToSubmit);
-        // console.log('Data submitted successfully:', response.data);Z
+        console.log('Data submitted successfully:', response.data);
     } catch (error) {
         if (error.response && error.response.status === 409) {
           // Handle conflict error specifically

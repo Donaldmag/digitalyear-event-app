@@ -61,8 +61,14 @@ const emit = defineEmits('next-step');
 async function submitForm(){
   try{
     const response = await axios.post('http://localhost:3008/check-email', {email: formData.email});
-    emit('next-step');
-    props.dataToSubmit.email = formData.email;
+   // Check for successful response (status code 200 or similar)
+   if (response.status === 200) { // Adjust the success criteria based on your API
+      props.dataToSubmit.email = formData.email;
+      emit('next-step');
+    } else {
+      console.error('Unexpected response status:', response.status);
+      // Handle unexpected responses if needed
+    }
 
   } catch (error) {
     if (error.response && error.response.status === 409){
