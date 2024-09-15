@@ -1,83 +1,79 @@
 <template>
-    <div class="p-10 min-h-screen flex flex-col items-center justify-center bg-pink-500">
-        <!-- <section class="h-screen flex items-center justify-center">
-            <h1 class="text-2xl md:text-6xl text-red-600 font-semibold">Digital <span class="text-slate-900">Year 2025</span></h1>
-        </section> -->
+    <div>
+        <div class="flex md:items-center items-start md:justify-center justify-start h-screen md:bg-[#f8f8f8] bg-white md:py-0 py-4 md:bg-cover md:bg-no-repeat md:bg-[url('https://img.freepik.com/free-photo/3d-abstract-science-background-with-flowing-particles_1048-17731.jpg')]">
+            <div class="mx-auto max-w-[420px] w-full bg-white rounded-xl p-6 md:shadow md:shadow-slate-100">
+                
+                <div class="">
+                    <div @click="moveBack(1)" v-if="stepTwoVisible" class="inline-flex flex-wrap items-center justify-between gap-4 px-3 py-1 -ml-3 rounded-xl mb-4 cursor-pointer hover:bg-gray-100 w-24">
+                        <span class="text-xl"><</span>
+                        <span class="text-sm uppercase">Back</span>
+                    </div>
 
-        <div class="h-32 w-32 relative hidden">
-            <div class="absolute inset-0 bg-white opacity-25 rounded-lg shadow-2xl"></div>
-            <div class="transform hover:scale-75 transition duration-300">
-                <div class="h-32 w-32 bg-white opacity-100 rounded-lg shadow-2xl"></div>
+                    <RegistrationFromHead />
+                    <FormStepOne @next-step="setIndex(1)" v-if="stepOneVisible===true" :dataToSubmit="dataToSubmit"/>
+                    <FormStepTwo @next-step="setIndex(2)" v-if="stepTwoVisible===true" :dataToSubmit="dataToSubmit"/>
+                    <FormStepThree @submit-form="submitForm()" v-if="stepThreeVisible===true" :dataToSubmit="dataToSubmit"/>
+
+                </div> 
             </div>
         </div>
-
-        <div class="h-32 w-32 relative hidden">
-            <div class="absolute inset-0 bg-white opacity-25 rounded-lg shadow-2xl"></div>
-            <div class="transform hover:scale-x-50 hover:scale-y-150 transition duration-300">
-                <div class="h-32 w-32 bg-white opacity-100 rounded-lg shadow-2xl"></div>
-            </div>
-        </div>
-
-        <div class="h-32 w-32 relative hidden">
-            <div class="absolute inset-0 bg-white opacity-25 rounded-lg shadow-2xl"></div>
-            <div class="transform hover:rotate-45 transition duration-300">
-                <div class="h-32 w-32 bg-white opacity-100 rounded-lg shadow-2xl"></div>
-            </div>
-        </div>
-
-        <div class="h-32 w-32 relative hidden">
-            <div class="absolute inset-0 bg-white opacity-25 rounded-lg shadow-2xl"></div>
-            <div class="transform origin-bottom-left hover:-rotate-45 transition duration-300">
-                <div class="h-32 w-32 bg-white opacity-100 rounded-lg shadow-2xl"></div>
-            </div>
-        </div>
-
-        <div class="h-32 w-32 relative hidden">
-            <div class="absolute inset-0 bg-white opacity-25 rounded-lg shadow-2xl"></div>
-            <div class="transform hover:translate-x-1/2 transition duration-300">
-                <div class="h-32 w-32 bg-white opacity-100 rounded-lg shadow-2xl"></div>
-            </div>
-        </div>
-
-        <div class="h-32 w-32 relative hidden">
-            <div class="absolute inset-0 bg-white opacity-25 rounded-lg shadow-2xl"></div>
-            <div class="transform hover:translate-x-1/2 hover:translate-y-1/2 transition duration-300">
-                <div class="h-32 w-32 bg-white opacity-100 rounded-lg shadow-2xl"></div>
-            </div>
-        </div>
-
-        <div class="hidden">
-            <!-- <div class="absolute inset-0 bg-white opacity-25 rounded-lg shadow-2xl"></div> -->
-            <div :class="{'translate-y-full' : isActive}" class="transform transition duration-500">
-                <div class="h-32 w-32 bg-white opacity-100 rounded-lg shadow-2xl"></div>
-            </div>
-        </div>
-
-        <div :class="{'origin-bottom translate-y-1/2' : isActive}" class="transform transition duration-500">
-            <div v-show="isActive" class="flex items-center justify-start gap-2 py-2 px-4 rounded-xl mb-4 bg-gray-100">
-                <div class="w-full items-start flex flex-col-reverse">
-                    <input
-                    type="text"
-                    name="organization"
-                    id="organization"
-                    placeholder="My Organization Name"
-                    class="w-full pb-2 border-[#DDE3EC] border-b border-l-0 border-r-0 border-t-0 outline-none focus:outline-none bg-transparent font-semibold placeholder:text-[#536387] placeholder:font-normal focus:text-[#6A64F1]"
-                    />
-                    <label for="organization" class="text-[#07074D] capitalize font-semibold mb-1"> Organization name</label>
-                </div>
-            </div>
-        </div>
-
-        <button class="py-2 px-4 bg-blue-500 text-white m-2 rounded" @click="changeAnimation()">Click me</button>
 
     </div>
 </template>
 
 <script setup>
-const isActive = ref(false);
+import axios from 'axios';
+const dataToSubmit = reactive({
+  firstName: '',
+  lastName: '',
+  organizationName : '',
+  event:null,
+  email: '',
+  errorMessage : null
+});
+// const errorMessage = reactive(null)
 
-const changeAnimation = () => {
-    isActive.value = true;
-    console.log('isActive value', isActive.value);
+const stepOneVisible = ref(true);
+const stepTwoVisible = ref(false);
+const stepThreeVisible = ref(false);
+
+const setIndex = (type) =>{
+    if(type === 1){
+        stepOneVisible.value = false;
+        stepTwoVisible.value = true;
+        stepThreeVisible.value = false;
+    }
+    else if(type === 2){
+        stepOneVisible.value = false;
+        stepTwoVisible.value = false;
+        stepThreeVisible.value = true;
+    }
 }
+
+const moveBack = (type) =>{
+    if(type === 1){
+        stepOneVisible.value = true;
+        stepTwoVisible.value = false;
+        stepThreeVisible.value = false;
+    }
+}
+
+async function submitForm(){
+    try {
+        // console.log('data to submit', dataToSubmit);
+        const response = await axios.post('http://localhost:3008/submit-data', dataToSubmit);
+        console.log('Data submitted successfully:', response.data);
+    } catch (error) {
+        if (error.response && error.response.status === 409) {
+          // Handle conflict error specifically
+          dataToSubmit.errorMessage = error.response.data.error;
+        alert(dataToSubmit.errorMessage);
+        } else {
+          // Handle other errors
+          errorMessage = 'An unexpected error occurred.';
+        }
+        console.error('Error submitting data:', error);
+    }
+}
+
 </script>

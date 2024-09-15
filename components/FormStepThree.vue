@@ -41,14 +41,14 @@ const initiateSubmition = () => {
 const openWhatsapp = () => {
   eventStatusValue.value = true;
   initiateSubmition();
-    // let whatsappNumber = whatsappPhoneNumber.value.replace(/\D/g, '');
-    // window.location.href = `https://api.whatsapp.com/send?phone=${whatsappNumber}`;
+  let whatsappNumber = whatsappPhoneNumber.value.replace(/\D/g, '');
+  window.location.href = `https://api.whatsapp.com/send?phone=${whatsappNumber}`;
 }
 
 const endformSubmit = () =>{
   eventStatusValue.value = false;
   initiateSubmition();
-  // navigateTo('/thank-you');
+  navigateTo('/thank-you');
 }
 
 </script>
