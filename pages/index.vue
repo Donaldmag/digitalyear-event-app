@@ -5,7 +5,7 @@
                 
                 <div class="">
                     <div @click="moveBack(1)" v-if="stepTwoVisible" class="inline-flex flex-wrap items-center justify-between gap-4 px-3 py-1 -ml-3 rounded-xl mb-4 cursor-pointer hover:bg-gray-100 w-24">
-                        <span class="text-xl"><</span>
+                        <span class="text-xl" >{{ returnIcon }}</span>
                         <span class="text-sm uppercase">Back</span>
                     </div>
 
@@ -23,6 +23,8 @@
 
 <script setup>
 import axios from 'axios';
+
+const returnIcon = ref('<');
 const dataToSubmit = reactive({
   firstName: '',
   lastName: '',
