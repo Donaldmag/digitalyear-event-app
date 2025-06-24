@@ -1,6 +1,21 @@
-# Nuxt 3 Minimal Starter
+# Minimalist authentification & subscribing event app 
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+![Digital year app](</screenshot/digitalyearapp.org>) to learn more.
+
+## Technologies
+Vue 3 <br>
+Tailwindcss 3 <br>
+
+## Coding techniques
+- Computed properties
+- Composables
+- Async fetching
+- Error catching
+- Form validating
+- Data binding
+- Props transfer (Bi-directional)
+- API communication with axios
+- JSON manipulation
 
 ## Setup
 
@@ -72,4 +87,4 @@ yarn preview
 bun run preview
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Demo : https://app.digitalyear.org/
