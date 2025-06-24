@@ -3,7 +3,7 @@ import { useVuelidate } from '@vuelidate/core';
 export default function useReactiveForm() {
 
   const formData = reactive({
-    firstName: '',
+      firstName: '',
       lastName: '',
       organizationName: '',
       email:'',

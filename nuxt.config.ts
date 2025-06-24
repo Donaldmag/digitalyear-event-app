@@ -7,6 +7,11 @@ export default defineNuxtConfig({
   modules:[
     // '@vee-validate/nuxt'
   ],
+  runtimeConfig: {
+    public: {
+      baseURL: process.env.BASE_URL || 'http://localhost:3000/',
+    }
+  },
   postcss: {
     plugins: {
       tailwindcss: {},

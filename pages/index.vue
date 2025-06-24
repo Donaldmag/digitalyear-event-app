@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="flex md:items-center items-start md:justify-center justify-start h-screen md:bg-[#f8f8f8] bg-white md:py-0 py-4 md:bg-cover md:bg-no-repeat md:bg-[url('https://img.freepik.com/free-photo/3d-abstract-science-background-with-flowing-particles_1048-17731.jpg')]">
+        <div class="flex md:items-center items-start md:justify-center justify-start h-screen md:bg-[#f8f8f8] bg-white md:py-0 py-4 md:bg-cover md:bg-no-repeat" :style="setBackgroundImage">
             <div class="mx-auto max-w-[420px] w-full bg-white rounded-xl p-6 md:shadow md:shadow-slate-100">
                 
                 <div class="">
@@ -23,6 +23,13 @@
 
 <script setup>
 import axios from 'axios';
+
+const bgImage = ref('https://img.freepik.com/free-photo/3d-abstract-science-background-with-flowing-particles_1048-17731.jpg');
+const setBackgroundImage = computed(() =>{
+    return {
+        backgroundImage : `Url(${bgImage.value})`
+    }
+});
 
 const returnIcon = ref('<');
 const dataToSubmit = reactive({
@@ -60,18 +67,19 @@ const moveBack = (type) =>{
     }
 }
 
+const config = useRuntimeConfig();
+
+const url = `${config.public.baseURL}/submit-data`;
+
 async function submitForm(){
     try {
-        // console.log('data to submit', dataToSubmit);
-        const response = await axios.post('http://localhost:3008/submit-data', dataToSubmit);
-        console.log('Data submitted successfully:', response.data);
+        const response = await axios.post(url, dataToSubmit);
     } catch (error) {
         if (error.response && error.response.status === 409) {
-          // Handle conflict error specifically
+          // Handle conflict error 
           dataToSubmit.errorMessage = error.response.data.error;
         alert(dataToSubmit.errorMessage);
         } else {
-          // Handle other errors
           errorMessage = 'An unexpected error occurred.';
         }
         console.error('Error submitting data:', error);

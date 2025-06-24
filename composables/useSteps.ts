@@ -5,13 +5,13 @@ export default function useSteps(){
     const nextStep = () => {
         if(step.value >= 0 && step.value <3){
             step.value++;
-            console.log('step value', step.value);
+            // console.log('step value', step.value);
         }
     }
     const prevStep = () => {
         if(step.value >0 && step.value <2){
             step.value--;
-            console.log('step value', step.value);
+            // console.log('step value', step.value);
         }
     }
 

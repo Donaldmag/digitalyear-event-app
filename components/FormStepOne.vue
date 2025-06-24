@@ -87,8 +87,6 @@
 <script setup>
 import useReactiveForm from '../composables/useReactiveForm';
 const { formData, v$ } = useReactiveForm();
-// import useForm from '../composables/useForm';
-// const { dataToSubmit } = useForm();
 
 const props = defineProps({
   dataToSubmit: { type: Object, required: true },
@@ -103,8 +101,6 @@ function submitForm(){
     props.dataToSubmit.lastName = formData.lastName;
     props.dataToSubmit.organizationName = formData.organizationName;
     emit('next-step');
-    // console.log('formData is', formData);
-    // console.log('dataToSubmit is', props.dataToSubmit);
     
   } else if(v$.value.$invalid){
     alert('Please enter a valid First name or Last name')

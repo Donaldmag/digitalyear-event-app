@@ -50,24 +50,25 @@ import useReactiveForm from '../composables/useReactiveForm';
 import axios from 'axios';
 
 const { formData, v$ } = useReactiveForm();
-// import useForm from '../composables/useForm';
-// const { dataToSubmit } = useForm();
+const config = useRuntimeConfig();
 
 const props = defineProps({
   dataToSubmit: { type: Object, required: true },
 });
 const emit = defineEmits('next-step');
 
+const url = `${config.public.baseURL}/check-email`;
+
 async function submitForm(){
   try{
-    const response = await axios.post('http://localhost:3008/check-email', {email: formData.email});
-   // Check for successful response (status code 200 or similar)
-   if (response.status === 200) { // Adjust the success criteria based on your API
+    const response = await axios.post(url, {email: formData.email});
+   // Check for successful response (status code 200)
+   if (response.status === 200) { 
       props.dataToSubmit.email = formData.email;
       emit('next-step');
     } else {
       console.error('Unexpected response status:', response.status);
-      // Handle unexpected responses if needed
+      // Handle unexpected responses
     }
 
   } catch (error) {
