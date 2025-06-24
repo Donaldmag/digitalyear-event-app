@@ -1,6 +1,6 @@
 # Minimalist authentification & subscribing event app 
 
-![Digital year app](</screenshot/digitalyearapp.org>) to learn more.
+![Digital year app](</screenshot/digitalyearapp.org.png>) to learn more.
 
 ## Technologies
 Vue 3 <br>
